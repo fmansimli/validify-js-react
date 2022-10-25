@@ -1,24 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Schema } from "./schema";
+import useValidation from "./useValidation";
 
 function App() {
+  const form = useValidation(
+    new Schema({
+      name: {
+        required: true,
+        minLength: 3,
+        maxLength: 10,
+      },
+      surname: {
+        required: true,
+        minLength: 3,
+        maxLength: 10,
+      },
+      age: {
+        required: true,
+        max: 30,
+        min: 18,
+      },
+    })
+  );
+
+  const submitHandler = () => {
+    const result = form.validate();
+    console.log(result);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="App"
+      style={{
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <form>
+        <input
+          onChange={form.updateField}
+          name="name"
+          onBlur={form.touchField}
+        />
+        <br />
+        <br />
+        <input
+          onChange={form.updateField}
+          name="surname"
+          onBlur={form.touchField}
+        />
+        <br />
+        <br />
+        <input type="number" onChange={form.updateField} name="age" />
+        <br />
+        <br />
+        <button type="button" onClick={submitHandler}>
+          save
+        </button>
+      </form>
     </div>
   );
 }
