@@ -1,5 +1,5 @@
 import { ChangeEvent, useReducer, useEffect, useState } from "react";
-import { Schema, ISchema } from "./schema";
+import { Schema, ISchema } from "@validify-js/core";
 
 interface IState {
   ok: boolean;

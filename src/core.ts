@@ -1,5 +1,5 @@
 import { ChangeEvent, useReducer } from "react";
-import { Schema } from "./schema";
+import { Schema } from "@validify-js/core";
 
 interface IState {
   ok: boolean;
