@@ -1,12 +1,20 @@
 {
-  "name": "validify-react",
+  "name": "@validify/react",
+  "description": "validation package for React.js",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "git": "git add . && git commit -m \"new version\" && git push",
+    "pub": "npm run git && npm version patch && npm run build && npm publish --access=public"
   },
   "devDependencies": {
     "react": "^18.2.0",
