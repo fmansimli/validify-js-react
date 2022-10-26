@@ -1,56 +1,60 @@
-import { ChangeEvent, useReducer } from "react";
+import { ChangeEvent, useReducer, useEffect, useState } from "react";
+import { Schema, ISchema } from "./schema";
 
 interface IState {
-  errors: object | null;
   ok: boolean;
-  data: object;
+  errors: { [key: string]: any };
+  data: { [key: string]: any };
   touched: { [key: string]: boolean };
 }
 
 const initialState: IState = {
-  errors: null,
+  errors: {},
   ok: false,
   data: {},
   touched: {},
 };
 
 enum Actions {
-  TOUCH = "TO",
-  UPDATE = "UP",
+  BLUR = "TO",
+  CHANGE = "CH",
   VALIDATE = "VA",
-  UPDATE_TOUCH = "UT",
   ERROR = "ER",
 }
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case Actions.UPDATE_TOUCH:
-      return {
-        ...state,
-        data: { ...state.data, ...action.payload.updated },
-        touched: { ...state.touched, ...action.payload.touched },
-      };
-
-    case Actions.UPDATE:
+    case Actions.CHANGE:
       return { ...state, data: { ...state.data, ...action.payload } };
 
     case Actions.VALIDATE:
       return action.payload;
 
-    case Actions.TOUCH:
+    case Actions.BLUR:
       return {
         ...state,
         touched: { ...state.touched, ...action.payload.touched },
         errors: { ...state.errors, ...action.payload.errors },
       };
 
+    case Actions.ERROR:
+      return {
+        ...state,
+        errors: { ...state.errors, ...action.payload },
+      };
+
     default:
-      return state;
+      return initialState;
   }
 };
 
-const useValidation = (schema: any) => {
+export const useDynamicSchema = (fn: (s: any) => ISchema, initial: Schema) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [schema, setSchema] = useState<Schema>(initial);
+
+  useEffect(() => {
+    setSchema(initial.rebuilt(fn(state.data)));
+  }, [state.data]);
 
   const validate = () => {
     const vdata = schema.validate(state.data);
@@ -62,16 +66,20 @@ const useValidation = (schema: any) => {
   const updateField = (e: ChangeEvent<HTMLInputElement>) => {
     let { name, type, value } = e.target;
     const myvalue = type === "number" ? Number(value) : value;
-    dispatch({ type: Actions.UPDATE, payload: { [name]: myvalue } });
+
+    dispatch({ type: Actions.CHANGE, payload: { [name]: myvalue } });
+    if (state.touched[name]) {
+      const { message, ok } = schema.validateField(name, { [name]: myvalue });
+      dispatch({ type: Actions.ERROR, payload: { [name]: message } });
+    }
   };
 
-  const touchField = (e: any) => {
+  const blurField = (e: any) => {
     let { name, value } = e.target;
-
+    if (!value) return;
     const { message, ok } = schema.validateField(name, { [name]: value });
-
     dispatch({
-      type: Actions.TOUCH,
+      type: Actions.BLUR,
       payload: {
         errors: ok ? {} : { [name]: message },
         touched: { [name]: true },
@@ -79,16 +87,8 @@ const useValidation = (schema: any) => {
     });
   };
 
-  const updateAndTouch = (e: ChangeEvent<HTMLInputElement>) => {
-    let { name, type, value } = e.target;
-
-    dispatch({
-      type: Actions.UPDATE_TOUCH,
-      payload: {
-        touched: { [name]: true },
-        updated: { [name]: type === "number" ? Number(value) : value },
-      },
-    });
+  const resetForm = () => {
+    dispatch({ type: "" });
   };
 
   return {
@@ -97,10 +97,8 @@ const useValidation = (schema: any) => {
     data: state.data,
     touched: state.touched,
     updateField,
-    touchField,
+    blurField,
     validate,
-    updateAndTouch,
+    resetForm,
   };
 };
-
-export default useValidation;
