@@ -14,6 +14,14 @@ interface IState {
   };
 }
 
+interface IEvent {
+  target: {
+    name: string;
+    value: string | number | boolean;
+    type: string;
+  };
+}
+
 enum Actions {
   BLUR = "TO",
   CHANGE = "CH",
@@ -45,7 +53,19 @@ export const useDynamicSchema = (schema: Schema, initial = {}) => {
     return vdata;
   };
 
-  const updateField = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateNative = (name: string) => {
+    return (value: any) => {
+      updateField({ target: { name, value, type: "str" } });
+    };
+  };
+
+  const blurNative = (name: string) => {
+    return (value: any) => {
+      updateField({ target: { name, value, type: "str" } });
+    };
+  };
+
+  const updateField = (e: IEvent) => {
     let { name, type, value } = e.target;
     const val = type === "number" ? Number(value) : value;
 
@@ -67,7 +87,7 @@ export const useDynamicSchema = (schema: Schema, initial = {}) => {
     }
   };
 
-  const blurField = (e: any) => {
+  const blurField = (e: IEvent) => {
     let { name, value, type } = e.target;
     const val = type === "number" ? Number(value) : value;
     if (!value) return;
@@ -87,7 +107,9 @@ export const useDynamicSchema = (schema: Schema, initial = {}) => {
     ok: state.ok,
     data: state.data,
     updateField,
+    updateNative,
     blurField,
+    blurNative,
     validate,
     resetForm,
   };
