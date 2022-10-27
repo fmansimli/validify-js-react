@@ -1,7 +1,6 @@
 {
   "name": "@validify-js/react",
   "description": "validation package for React.js",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",
