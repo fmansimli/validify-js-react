@@ -105,14 +105,14 @@ const  LoginPage = (props) => {
             name="username"
             onChange={form.updateField}
             onBlur={form.blurField}
-            value={form.data.name.value}
+            value={form.data.username.value}
           />
           <small>{form.data.username.error}</small>
 
           //or
 
-          {form.data.password.touched && (
-            <small>{form.data.surname.error}</small>
+          {form.data.username.touched && (
+            <small>{form.data.username.error}</small>
           )}
 
 
@@ -121,7 +121,7 @@ const  LoginPage = (props) => {
             name="password"
             onChange={form.updateField}
             onBlur={form.blurField}
-            value={form.data.surname.value}
+            value={form.data.password.value}
           />
           <small>{form.data.password.error}</small>
 
@@ -207,11 +207,11 @@ const LoginPage = (props) => {
 <TextInput
   onValueChange={form.updateNative("username")}
   onBlur={form.blurNative("username")}
-  value={form.data.name.value}
+  value={form.data.username.value}
 />
 
-{form.data.password.touched && (
-  <Text>{form.data.surname.error}</Text>
+{form.data.username.touched && (
+  <Text>{form.data.username.error}</Text>
 )}
 
 ```
