@@ -1,3 +1,3 @@
 export { useSchema } from "./core";
-export { useDynamicSchema } from "./dynamic";
+export { useDynamic } from "./dynamic";
 export { Schema } from "@validify-js/core";

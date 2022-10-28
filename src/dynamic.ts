@@ -1,5 +1,5 @@
-import { ChangeEvent, useReducer } from "react";
-import { Schema } from "@validify-js/core";
+import { useReducer, useState } from "react";
+import { Schema, ISchema } from "@validify-js/core";
 import { Util } from "./util";
 
 interface IState {
@@ -41,15 +41,20 @@ const reducer = (state: IState, action: any) => {
   }
 };
 
-export const useDynamicSchema = (schema: Schema, initial = {}) => {
+export const useDynamic = (
+  schema: Schema,
+  func: (state?: any) => ISchema,
+  fields: string[],
+  initial = {}
+) => {
   const [state, dispatch] = useReducer(reducer, Util.init(schema, initial));
+  const [dynamic, setDynamic] = useState<Schema>(schema);
 
   const validate = () => {
     const plain = Util.plain(state.data);
-    const vdata = schema.validate(plain);
+    const vdata = dynamic.validate(plain);
     const payload = Util.shape(vdata);
     dispatch({ type: Actions.VALIDATE, payload });
-
     return vdata;
   };
 
@@ -70,7 +75,7 @@ export const useDynamicSchema = (schema: Schema, initial = {}) => {
     const val = type === "number" ? Number(value) : value;
 
     if (state.data[name].touched) {
-      const { message, ok } = schema.validateField(name, { [name]: val });
+      const { message, ok } = dynamic.validateField(name, { [name]: val });
       dispatch({
         type: Actions.CHANGE,
         payload: {
@@ -90,16 +95,23 @@ export const useDynamicSchema = (schema: Schema, initial = {}) => {
   const blurField = (e: IEvent) => {
     let { name, value, type } = e.target;
     const val = type === "number" ? Number(value) : value;
-    if (!value) return;
-    const { message, ok } = schema.validateField(name, { [name]: val });
+    if (!value && !fields.includes(name)) return;
+
+    const { message, ok } = dynamic.validateField(name, { [name]: val });
     dispatch({
       type: Actions.CHANGE,
       payload: { [name]: { ok, value: val, error: message, touched: true } },
     });
+
+    if (fields.includes(name)) {
+      const plain = Util.plain(state.data);
+      const newschema = schema.rebuilt(func({ ...plain, [name]: val }));
+      setDynamic(newschema);
+    }
   };
 
   const resetForm = () => {
-    const payload = Util.init(schema, initial);
+    const payload = Util.init(dynamic, initial);
     dispatch({ type: "", payload });
   };
 

@@ -38,4 +38,21 @@ export class Util {
 
     return { ok: false, data };
   }
+
+  static fullInit(schema: any, initial: any) {
+    const initialData: any = {};
+
+    const { data, errors, ok } = schema.validate(initial);
+
+    for (const field in schema) {
+      initialData[field] = {
+        ok: errors.hasOwnProperty(field) ? false : true,
+        touched: false,
+        value: data[field] || "",
+        error: errors[field] || "",
+      };
+    }
+
+    return { ok, data: initialData };
+  }
 }
