@@ -2,7 +2,9 @@
 
 ### installation
 
-> npm install --save @validfy-js/react
+```
+npm install --save @validfy-js/react
+```
 
 #### an example of how to create a valid schema to validate anything (a jsx form or an object)
 
@@ -142,3 +144,9 @@ const  LoginPage = (props) => {
 ```
 
 **that's pretty much it, guys!**
+
+---
+
+### **you can reach me here:**
+
+[**Linkedin**](https://linkedin.com/in/faridmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [Facebook](https://facebook.com/fmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Twitter**](https://twitter.com/faridmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Instagram**](https://instagram.com/faridmansimli)
