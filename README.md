@@ -10,7 +10,7 @@ npm install --save @validify-js/react
 
 **please, buy me a coffe to support this package.**
 
-## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg))](https://www.buymeacoffee.com/faridmansimli)
+## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/faridmansimli)
 
 ---
 
@@ -238,6 +238,6 @@ const LoginPage = (props) => {
 
 **please, buy me a coffe to support this package**.
 
-## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg))](https://www.buymeacoffee.com/faridmansimli)
+## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/faridmansimli)
 
 ---
