@@ -48,7 +48,7 @@ const { ok, data, errors } = userSchema.validate(user);
 
 ```
 
-## how to use it in order to validate form ? that's amazingly easy
+## how to use it with React.js ? that's amazingly easy
 
 ```
 
@@ -99,6 +99,13 @@ const  LoginPage = (props) => {
             value={form.data.name.value}
           />
           <small>{form.data.username.error}</small>
+
+          //or
+
+          {form.data.password.touched && (
+            <small>{form.data.surname.error}</small>
+          )}
+
 
           <input
             type="text"
