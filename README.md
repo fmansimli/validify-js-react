@@ -1,9 +1,9 @@
-## marvelous validation package for React.js / React Native
+### Marvelous validation for React.js / React Native
 
-### installation
+#### installation
 
 ```
-npm install --save @validfy-js/react
+npm install --save @validify-js/react
 ```
 
 #### an example of how to create a valid schema to validate anything (a jsx form or an object)
