@@ -51,6 +51,9 @@ const { ok, data, errors } = userSchema.validate(user);
 ## how to use it in order to validate form ? that's amazingly easy
 
 ```
+
+// best practice! create the schema as a seperate file and import it to keep code clean.
+
 import React from "react";
 import { useSchema , Schema } from "@validify-js/react";
 
@@ -128,19 +131,56 @@ export default LoginPage;
 ## how to use it with initial values ? this is also amazingly easy
 
 ```
+// best practice! create the schema as a seperate file and import it to keep code clean.
+
+import React from "react";
+import { useDynamic } from "@validify-js/react";
+
 const  LoginPage = (props) => {
 
-  const form = useSchema(loginSchema, {
+  const form = useSchema(personSchema, {
     name: "Farid",
     surname: "Mansimli",
   });
 
   // or you can also use it like below:
 
-  // const form2 = useSchema(loginSchema,props.initialUser);
+  // const form = useSchema(personSchema,props.person);
 
   ....
   ....
+```
+
+## how to use dependent fields ( dynamic schema) ? don't worry, it's a piece of cake
+
+use the **useDynamic** hook instead of **useSchema**
+
+just create a schema and specify dependent fields inside the hook.
+
+```
+// best practice! create the schema as a seperate file and import it to keep code clean.
+
+import React from "react";
+import { useDynamic } from "@validify-js/react";
+
+const LoginPage = (props) => {
+
+  const form = useDynamic(personSchema,
+      (data) => {
+        return {
+          surname: {
+            required: data.name ? true : false,
+            minLength: data.name ? 8 : 5
+          },
+          age: {
+            required: data.surname ? true : false,
+            min: data.surname ? 25 : 18
+          }
+        };
+      },
+      ["name", "surname"]
+    );
+
 ```
 
 **that's pretty much it, guys!**
