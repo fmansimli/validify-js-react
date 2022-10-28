@@ -1,8 +1,12 @@
-# validation
+# marvelous validation package for React.js / React Native
 
-### @validify-js/react ( for ReactJS and React Native )
+### installation
 
-an example of how to create a valid schema in order to validate anything (a jsx form or an object)
+```
+npm install --save @validfy-js/react
+```
+
+### an example of how to create a valid schema to validate anything (a jsx form or an object)
 
 ```
 import { Schema } from "@validify-js/react";
@@ -27,7 +31,7 @@ const userSchema = new Schema({
 
 ```
 
-you can validate any object or html ( jsx ) form by using the schema wich we created above. for example:
+you can validate any object or jsx form by using the schema wich we created above. for example:
 
 ```
 const user = {
@@ -38,8 +42,8 @@ const user = {
 
 const { ok, data, errors } = userSchema.validate(user);
 
-// validation will be failed (ok -> false),
-// because password field is required in the above schema.
+// validation will be failed. (ok --> false),
+// because "password" field is required in the above schema.
 
 
 ```
@@ -60,7 +64,8 @@ const loginSchema = new Schema({
   password: {
     required: true,
     pattern: /[A-Za-z0-9]{8,}/g,
-  },
+  }
+});
 
 
 const  LoginPage = (props) => {
@@ -130,11 +135,12 @@ const  LoginPage = (props) => {
     surname: "Mansimli",
   });
 
-  // you can also use it like this:
-  //  const form = useSchema(loginSchema,props.user);
+  // or you can also use it like below:
+
+  // const form2 = useSchema(loginSchema,props.initialUser);
 
   ....
   ....
 ```
 
-that's pretty much it, guys!
+### that's pretty much it, guys!
