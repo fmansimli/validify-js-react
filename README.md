@@ -16,16 +16,16 @@ const userSchema = new Schema({
   email: {
     required: true,
     email: true,
-    message: "email is required!", // if you omit message field default message will be displayed
+    message: "email is required!" // if you omit message field default message will be displayed
   },
   password: {
     required: true,
-    pattern: /[A-Za-z0-9]{8,}/g,
+    pattern: /[A-Za-z0-9]{8,}/g
   },
   age: {
     required: false,
     min: 18,
-    max: 30,
+    max: 30
   },
 });
 
@@ -37,7 +37,7 @@ const userSchema = new Schema({
 const user = {
   name: "Farid",
   surname: "Mansimli",
-  email: "farid@example.com",
+  email: "farid@example.com"
 };
 
 const { ok, data, errors } = userSchema.validate(user);
@@ -62,11 +62,11 @@ const loginSchema = new Schema({
     required: true,
     minLength: 5,
     maxLength: 15,
-    message: "username is required!",
+    message: "username is required!"
   },
   password: {
     required: true,
-    pattern: /[A-Za-z0-9]{8,}/g,
+    pattern: /[A-Za-z0-9]{8,}/g
   }
 });
 
@@ -140,7 +140,7 @@ const  LoginPage = (props) => {
 
   const form = useSchema(personSchema, {
     name: "Farid",
-    surname: "Mansimli",
+    surname: "Mansimli"
   });
 
   // or you can also use it like below:
