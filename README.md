@@ -6,7 +6,16 @@
 npm install --save @validify-js/react
 ```
 
-#### an example of how to create a valid schema to validate anything (a jsx form or an object)
+### Table of contents
+
+1. [Creating Schema](#example)
+   1. [validating an object](#validating)
+1. [Using with React.js](#reactjs)
+   1. [with initial values](#initial-values)
+1. [Dependent fields (dynamic schema)](#dependent-fields)
+1. [Using with React-native](#react-native)
+
+#### an example of how to create a valid schema <a name="example"></a>
 
 ```
 import { Schema } from "@validify-js/react";
@@ -31,7 +40,7 @@ const userSchema = new Schema({
 
 ```
 
-**you can validate any object or jsx form by using the schema wich we created above. for example:**
+#### **you can validate any object or jsx form by using the schema wich we created above. for example:** <a name="validating"></a>
 
 ```
 const user = {
@@ -48,7 +57,7 @@ const { ok, data, errors } = userSchema.validate(user);
 
 ```
 
-## how to use it with React.js ? that's amazingly easy
+## how to use it with React.js ? that's amazingly easy <a name="reactjs"></a
 
 ```
 
@@ -135,7 +144,7 @@ export default LoginPage;
 
 ---
 
-## how to use it with initial values ? this is also amazingly easy
+## how to use it with initial values ? this is also amazingly easy <a name="initial-values"></a
 
 ```
 // best practice! create the schema as a seperate file and import it to keep code clean.
@@ -158,7 +167,7 @@ const  LoginPage = (props) => {
   ....
 ```
 
-## how to use dependent fields ( dynamic schema) ? don't worry, it's a piece of cake
+## how to use dependent fields ? don't worry, it's a piece of cake <a name="dependent-fields"></a
 
 use the **useDynamic** hook instead of **useSchema**
 
@@ -190,10 +199,29 @@ const LoginPage = (props) => {
 
 ```
 
+## Using with React Native <a name="react-native"></a
+
+```
+// instead of updateField and blurField, use updateNative and blurNative, that's it!
+
+<TextInput
+  onValueChange={form.updateNative("username")}
+  onBlur={form.blurNative("username")}
+  value={form.data.name.value}
+/>
+
+{form.data.password.touched && (
+  <Text>{form.data.surname.error}</Text>
+)}
+
+```
+
 **that's pretty much it, guys!**
 
 ---
 
 ### **you can reach me here:**
+
+---
 
 [**Linkedin**](https://linkedin.com/in/faridmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Facebook**](https://facebook.com/fmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Twitter**](https://twitter.com/faridmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Instagram**](https://instagram.com/faridmansimli)
