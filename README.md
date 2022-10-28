@@ -1,4 +1,4 @@
-# marvelous validation package for React.js / React Native
+## marvelous validation package for React.js / React Native
 
 ### installation
 
@@ -6,7 +6,7 @@
 npm install --save @validfy-js/react
 ```
 
-### an example of how to create a valid schema to validate anything (a jsx form or an object)
+#### an example of how to create a valid schema to validate anything (a jsx form or an object)
 
 ```
 import { Schema } from "@validify-js/react";
@@ -31,7 +31,7 @@ const userSchema = new Schema({
 
 ```
 
-you can validate any object or jsx form by using the schema wich we created above. for example:
+##### you can validate any object or jsx form by using the schema wich we created above. for example:
 
 ```
 const user = {
