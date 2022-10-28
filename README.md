@@ -9,11 +9,11 @@ npm install --save @validify-js/react
 ### Table of contents
 
 1. [Creating Schema](#example)
-   1. [validating an object](#validating)
-1. [Using with React.js](#reactjs)
-   1. [with initial values](#initial-values)
-1. [Dependent fields (dynamic schema)](#dependent-fields)
-1. [Using with React-native](#react-native)
+2. [validating an object](#validating)
+3. [Using with React.js](#reactjs)
+4. [with initial values](#initial-values)
+5. [Dependent fields (dynamic schema)](#dependent-fields)
+6. [Using with React-native](#react-native)
 
 #### an example of how to create a valid schema <a name="example"></a>
 
