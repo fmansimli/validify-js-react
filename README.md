@@ -199,7 +199,7 @@ const LoginPage = (props) => {
 
 ```
 
-## Using with React Native <a name="react-native"></a
+## Using with React Native <a name="react-native">
 
 ```
 // instead of updateField and blurField, use updateNative and blurNative, that's it!
