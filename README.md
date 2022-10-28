@@ -6,7 +6,13 @@
 npm install --save @validify-js/react
 ```
 
-![https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg](https://www.buymeacoffee.com/faridmansimli)
+---
+
+**please, buy me a coffe to support this package.**
+
+## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg))](https://www.buymeacoffee.com/faridmansimli)
+
+---
 
 ### Table of contents
 
@@ -227,3 +233,11 @@ const LoginPage = (props) => {
 ---
 
 [**Linkedin**](https://linkedin.com/in/faridmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Facebook**](https://facebook.com/fmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Twitter**](https://twitter.com/faridmansimli) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; [**Instagram**](https://instagram.com/faridmansimli)
+
+---
+
+**please, buy me a coffe to support this package**.
+
+## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg))](https://www.buymeacoffee.com/faridmansimli)
+
+---
