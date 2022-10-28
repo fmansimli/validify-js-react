@@ -2,9 +2,7 @@
 
 ### installation
 
-```
-npm install --save @validfy-js/react
-```
+> npm install --save @validfy-js/react
 
 #### an example of how to create a valid schema to validate anything (a jsx form or an object)
 
@@ -31,7 +29,7 @@ const userSchema = new Schema({
 
 ```
 
-##### you can validate any object or jsx form by using the schema wich we created above. for example:
+**you can validate any object or jsx form by using the schema wich we created above. for example:**
 
 ```
 const user = {
@@ -119,11 +117,11 @@ export default LoginPage;
 
 ```
 
-you might not belive, however, that's pretty much it, as simple as you see
+**you might not belive, however, that's pretty much it, as simple as you see**
 
-#### P.S
+**P.S** keep in mind that -> name attribute of the input should match with the exact property in schema
 
-keep in mind that -> name attribute of the input should match with the exact property in schema
+---
 
 ## how to use it with initial values ? this is also amazingly easy
 
@@ -143,4 +141,4 @@ const  LoginPage = (props) => {
   ....
 ```
 
-### that's pretty much it, guys!
+**that's pretty much it, guys!**
