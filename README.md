@@ -57,7 +57,7 @@ const { ok, data, errors } = userSchema.validate(user);
 
 ```
 
-## how to use it with React.js ? that's amazingly easy <a name="reactjs"></a
+## how to use it with React.js ? that's amazingly easy <a name="reactjs"></a>
 
 ```
 
@@ -144,7 +144,7 @@ export default LoginPage;
 
 ---
 
-## how to use it with initial values ? this is also amazingly easy <a name="initial-values"></a
+## how to use it with initial values ? this is also amazingly easy <a name="initial-values"></a>
 
 ```
 // best practice! create the schema as a seperate file and import it to keep code clean.
@@ -167,7 +167,7 @@ const  LoginPage = (props) => {
   ....
 ```
 
-## how to use dependent fields ? don't worry, it's a piece of cake <a name="dependent-fields"></a
+## how to use dependent fields ? don't worry, it's a piece of cake <a name="dependent-fields"></a>
 
 use the **useDynamic** hook instead of **useSchema**
 
@@ -199,7 +199,7 @@ const LoginPage = (props) => {
 
 ```
 
-## Using with React Native <a name="react-native">
+## Using with React Native <a name="react-native"></a>
 
 ```
 // instead of updateField and blurField, use updateNative and blurNative, that's it!
