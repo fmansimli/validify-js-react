@@ -6,6 +6,8 @@
 npm install --save @validify-js/react
 ```
 
+![https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg](https://www.buymeacoffee.com/faridmansimli)
+
 ### Table of contents
 
 1. [Creating Schema](#example)
