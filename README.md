@@ -88,7 +88,8 @@ const { ok, data, errors } = userSchema.validate(user);
 
 ```
 
-// best practice! create the schema as a seperate file and import it to keep code clean.
+// best practice! create the schema as a seperate file
+// and import it to keep code clean.
 
 import React from "react";
 import { useSchema , Schema } from "@validify-js/react";
@@ -118,7 +119,7 @@ const  ProfilePage = (props) => {
   };
 
   return (
-  <div className="App">
+    <div className="App">
       <div>
         <form onSubmit={submitHanlder} onReset={form.resetForm}>
           <input
@@ -231,13 +232,13 @@ export default ProfilePage;
 
 ```
 
-**P.S**
-we'are using "**updateList**" method for multiple(array) values instead of "**updateField**"
+**P.S** &nbsp;&nbsp;
+we'are using "**updateList**" method for multiple(array) values instead of "**updateField**" <br />
 we'are also using "**blurList**" method for multiple(array) values instead of "**blurField**"
 
-look at the --> (hobbies) in the jsx
+look at the --> (hobbies) in the jsx above
 
-**P.S** keep in mind that -> name attribute of the input should match with the exact property in schema
+**P.S** &nbsp;&nbsp; keep in mind that -> name attribute of the input should match with the exact property in schema
 
 **you might not belive, however, that's pretty much it, as simple as you see**
 
@@ -246,7 +247,8 @@ look at the --> (hobbies) in the jsx
 ## how to use it with initial values ? this is also amazingly easy <a name="initial-values"></a>
 
 ```
-// best practice! create the schema as a seperate file and import it to keep code clean.
+// best practice! create the schema as a seperate file
+// and import it to keep code clean.
 
 import React from "react";
 import { useSchema } from "@validify-js/react";
@@ -277,7 +279,8 @@ use the **useDynamic** hook instead of **useSchema**
 just create a schema and specify dependent fields inside the hook.
 
 ```
-// best practice! create the schema as a seperate file and import it to keep code clean.
+// best practice! create the schema as a seperate file
+// and import it to keep code clean.
 
 import React from "react";
 import { useDynamic } from "@validify-js/react";
