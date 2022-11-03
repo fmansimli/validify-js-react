@@ -108,9 +108,6 @@ export const useDynamic = (
     if (fields.includes(name)) {
       const plain = Util.plain(state.data);
       const newschema = schema.rebuilt(func({ ...plain, [name]: value }));
-
-      console.log(newschema);
-
       setDynamic(newschema);
     }
   };
