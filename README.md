@@ -28,7 +28,8 @@ npm install --save @validify-js/react
 #### an example of how to create a valid schema <a name="example"></a>
 
 ```
-//keep in mind that "type" property must be specified!!! for example type:Number
+// keep in mind that "type" property must be specified!!!
+// for example type:Number
 
 import { Schema } from "@validify-js/react";
 
@@ -98,6 +99,11 @@ import { useSchema , Schema } from "@validify-js/react";
 const  ProfilePage = (props) => {
   const form = useSchema(userSchema);
 
+  const { name, age, profession, blocked, hobbies, gender } = form.data;
+
+  // you can destructure the fields from form.data, if you want
+
+
   const submitHanlder = (event) => {
     event.preventDefault();
 
@@ -138,7 +144,7 @@ const  ProfilePage = (props) => {
           <br />
 
           <div>
-            {hobbiess.map((hobbie, index) => (
+            {hobbieList.map((hobbie, index) => (
               <div key={index}>
                 <label htmlFor={`hobbie${index}`}>{hobbie}</label>
                 <input
@@ -155,6 +161,9 @@ const  ProfilePage = (props) => {
           </div>
           <br />
           <small>{hobbies.error}</small>
+
+          // we'are using "updateList" method for multiple(array) values instead of updateField
+          // we'are also using "blurList" method for multiple(array) values instead of blurField
 
           <hr />
 
@@ -199,7 +208,7 @@ const  ProfilePage = (props) => {
             <option value="default" disabled>
               select profession
             </option>
-            {professions.map((profession, key) => (
+            {professionList.map((profession, key) => (
               <option key={key} value={profession}>
                 {profession}
               </option>
@@ -222,9 +231,15 @@ export default ProfilePage;
 
 ```
 
-**you might not belive, however, that's pretty much it, as simple as you see**
+**P.S**
+we'are using "**updateList**" method for multiple(array) values instead of "**updateField**"
+we'are also using "**blurList**" method for multiple(array) values instead of "**blurField**"
+
+look at the --> (hobbies) in the jsx
 
 **P.S** keep in mind that -> name attribute of the input should match with the exact property in schema
+
+**you might not belive, however, that's pretty much it, as simple as you see**
 
 ---
 
