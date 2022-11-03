@@ -14,16 +14,7 @@ interface IState {
   };
 }
 
-interface IEvent {
-  target: {
-    name: string;
-    value: string | number | boolean;
-    type: string;
-  };
-}
-
 enum Actions {
-  BLUR = "TO",
   CHANGE = "CH",
   VALIDATE = "VA",
 }
@@ -53,48 +44,104 @@ export const useSchema = (schema: Schema, initial = {}) => {
     return vdata;
   };
 
-  const updateNative = (name: string) => {
-    return (value: any) => {
-      updateField({ target: { name, value, type: "str" } });
-    };
-  };
+  const updateField = (e: any) => {
+    if (!e.target) {
+      return (value: any) => {
+        updateField({ target: { name: e, value, type: "native" } });
+      };
+    }
+    let { name, type, value, checked } = e.target;
 
-  const blurNative = (name: string) => {
-    return (value: any) => {
-      updateField({ target: { name, value, type: "str" } });
-    };
-  };
-
-  const updateField = (e: IEvent) => {
-    let { name, type, value } = e.target;
-    const val = type === "number" ? Number(value) : value;
+    switch (type) {
+      case "number":
+        value = Number(value);
+        break;
+      case "checkbox":
+        value = checked;
+        break;
+    }
 
     if (state.data[name].touched) {
-      const { message, ok } = schema.validateField(name, { [name]: val });
+      const { message, ok } = schema.validateField(name, { [name]: value });
       dispatch({
         type: Actions.CHANGE,
-        payload: {
-          [name]: { ok, value: val, error: message, touched: true },
-        },
+        payload: { [name]: { ok, value, error: message, touched: true } },
       });
     } else {
       dispatch({
         type: Actions.CHANGE,
-        payload: {
-          [name]: { ok: true, value: val, error: "", touched: false },
-        },
+        payload: { [name]: { ok: true, value, error: "", touched: false } },
       });
     }
   };
 
-  const blurField = (e: IEvent) => {
-    let { name, value, type } = e.target;
-    const val = type === "number" ? Number(value) : value;
+  const blurField = (e: any) => {
+    if (!e.target) {
+      return (value: any) => {
+        blurField({ target: { name: e, value, type: "native" } });
+      };
+    }
+    let { name, value, type, checked } = e.target;
     if (!value) return;
-    const { message, ok } = schema.validateField(name, { [name]: val });
+
+    switch (type) {
+      case "number":
+        value = Number(value);
+        break;
+      case "checkbox":
+        value = checked;
+        break;
+    }
+
+    const { message, ok } = schema.validateField(name, { [name]: value });
     dispatch({
       type: Actions.CHANGE,
-      payload: { [name]: { ok, value: val, error: message, touched: true } },
+      payload: { [name]: { ok, value, error: message, touched: true } },
+    });
+  };
+
+  const updateList = (e: any) => {
+    if (!e.target) {
+      return (value: any) => {
+        updateList({ target: { name: e, value, type: "native" } });
+      };
+    }
+    let { name, value, checked } = e.target;
+
+    const old = state.data[name].value;
+    if (checked === false) {
+      value = old.filter((v: any) => v !== value);
+    } else {
+      value = old.concat(value);
+    }
+
+    if (state.data[name].touched) {
+      const { message, ok } = schema.validateField(name, { [name]: value });
+      dispatch({
+        type: Actions.CHANGE,
+        payload: { [name]: { ok, value, error: message, touched: true } },
+      });
+    } else {
+      dispatch({
+        type: Actions.CHANGE,
+        payload: { [name]: { ok: true, value, error: "", touched: false } },
+      });
+    }
+  };
+
+  const blurList = (e: any) => {
+    if (!e.target) {
+      return (value: any) => {
+        updateList({ target: { name: e, value, type: "native" } });
+      };
+    }
+    let { name } = e.target;
+    const value = state.data[name].value;
+
+    const { message, ok } = schema.validateField(name, { [name]: value });
+    dispatch({
+      type: Actions.CHANGE,
+      payload: { [name]: { ok, value, error: message, touched: true } },
     });
   };
 
@@ -107,9 +154,9 @@ export const useSchema = (schema: Schema, initial = {}) => {
     ok: state.ok,
     data: state.data,
     updateField,
-    updateNative,
+    updateList,
     blurField,
-    blurNative,
+    blurList,
     validate,
     resetForm,
   };

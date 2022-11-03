@@ -1,5 +1,7 @@
 ### Marvelous validation for React.js / React Native
 
+---
+
 #### installation
 
 ```
@@ -26,23 +28,38 @@ npm install --save @validify-js/react
 #### an example of how to create a valid schema <a name="example"></a>
 
 ```
+//keep in mind that "type" property must be specified!!! for example type:Number
+
 import { Schema } from "@validify-js/react";
 
-const userSchema = new Schema({
-  name: { required: false, minLength: 5 },
-  email: {
+export const user = new Schema({
+  name: { type: String, required: false, minLength: 7 },
+  email: { type: String, required: true, email: true },
+  gender: { type: String, required: true },
+  hobbies: {
+    type: Array,
     required: true,
-    email: true,
-    message: "email is required!" // if you omit message field default message will be displayed
+    minLength: 3,
+    message: "3 hobbies should be selected at least!", // if you omit  the "message" field, default message will be displayed
+  },
+  blocked: {
+    type: Boolean,
+    required: false,
   },
   password: {
+    type: Number,
     required: true,
-    pattern: /[A-Za-z0-9]{8,}/g
+    pattern: /[A-Za-z0-9]{8,}/
   },
   age: {
+    type: Number,
     required: false,
     min: 18,
-    max: 30
+    max: 30,
+  },
+  profession: {
+    type: String,
+    required: true,
   },
 });
 
@@ -53,14 +70,15 @@ const userSchema = new Schema({
 ```
 const user = {
   name: "Farid",
-  surname: "Mansimli",
-  email: "farid@example.com"
+  email: "farid@example.com",
+  hobbies:["sky-diving", "soccer"],
+  age: 25
 };
 
 const { ok, data, errors } = userSchema.validate(user);
 
 // validation will be failed. (ok --> false),
-// because "password" field is required in the above schema.
+// because, a few fields are required in the above schema.
 
 
 ```
@@ -74,22 +92,11 @@ const { ok, data, errors } = userSchema.validate(user);
 import React from "react";
 import { useSchema , Schema } from "@validify-js/react";
 
-const loginSchema = new Schema({
-  username: {
-    required: true,
-    minLength: 5,
-    maxLength: 15,
-    message: "username is required!"
-  },
-  password: {
-    required: true,
-    pattern: /[A-Za-z0-9]{8,}/g
-  }
-});
+// create a schema ....
+// we are going to use the same schema which we created above.
 
-
-const  LoginPage = (props) => {
-  const form = useSchema(loginSchema);
+const  ProfilePage = (props) => {
+  const form = useSchema(userSchema);
 
   const submitHanlder = (event) => {
     event.preventDefault();
@@ -97,42 +104,111 @@ const  LoginPage = (props) => {
     const { ok, data, errors } = form.validate();
 
     if(ok){
-      // "ok" means form is valid , you are good to go!
+      // if "ok" is true, it means form is valid , you are good to go!
       // "data" includes input values
-      // "errors" includes the error messages of invalid fields , if exists
+      // "errors" includes the error messages of invalid fields, if exists
     }
 
   };
 
   return (
-    <div className="App">
+  <div className="App">
       <div>
         <form onSubmit={submitHanlder} onReset={form.resetForm}>
           <input
             type="text"
-            name="username"
+            name="name"
             onChange={form.updateField}
             onBlur={form.blurField}
-            value={form.data.username.value}
+            value={name.value}
           />
-          <small>{form.data.username.error}</small>
-
-          //or
-
-          {form.data.username.touched && (
-            <small>{form.data.username.error}</small>
-          )}
-
+          <br />
+          <small>{name.error}</small>
+          <br />
 
           <input
-            type="text"
-            name="password"
+            type="number"
+            name="age"
             onChange={form.updateField}
             onBlur={form.blurField}
-            value={form.data.password.value}
+            value={age.value}
           />
-          <small>{form.data.password.error}</small>
+          <br />
+          {age.touched && <small>{age.error}</small>}
+          <br />
 
+          <div>
+            {hobbiess.map((hobbie, index) => (
+              <div key={index}>
+                <label htmlFor={`hobbie${index}`}>{hobbie}</label>
+                <input
+                  id={`hobbie${index}`}
+                  type="checkbox"
+                  name="hobbies"
+                  value={hobbie}
+                  onChange={form.updateList}
+                  onBlur={form.blurList}
+                  checked={hobbies.value.includes(hobbie)}
+                />
+              </div>
+            ))}
+          </div>
+          <br />
+          <small>{hobbies.error}</small>
+
+          <hr />
+
+          <input
+            type="checkbox"
+            name="blocked"
+            onChange={form.updateField}
+            onBlur={form.blurField}
+            checked={blocked.value}
+          />
+          <br />
+          <small>{blocked.error}</small>
+
+          <hr />
+
+          <input
+            type="radio"
+            name="gender"
+            value="male"
+            onChange={form.updateField}
+            checked={gender.value === "male"}
+            onBlur={form.blurField}
+          />
+          <input
+            type="radio"
+            value="female"
+            name="gender"
+            onChange={form.updateField}
+            checked={gender.value === "female"}
+            onBlur={form.blurField}
+          />
+          <br />
+          <small>{gender.error}</small>
+
+          <hr />
+
+          <select
+            name="profession"
+            onChange={form.updateField}
+            defaultValue={profession.value || "default"}
+          >
+            <option value="default" disabled>
+              select profession
+            </option>
+            {professions.map((profession, key) => (
+              <option key={key} value={profession}>
+                {profession}
+              </option>
+            ))}
+          </select>
+          <br />
+          <small>{profession.error}</small>
+
+          <hr />
           <button type="submit">submit</button>
           <button type="reset">reset</button>
         </form>
@@ -141,7 +217,7 @@ const  LoginPage = (props) => {
   );
 }
 
-export default LoginPage;
+export default ProfilePage;
 
 
 ```
@@ -158,18 +234,22 @@ export default LoginPage;
 // best practice! create the schema as a seperate file and import it to keep code clean.
 
 import React from "react";
-import { useDynamic } from "@validify-js/react";
+import { useSchema } from "@validify-js/react";
 
-const  LoginPage = (props) => {
+import { personSchema } from "../validations/person";
+
+
+const  ProfilePage = (props) => {
 
   const form = useSchema(personSchema, {
     name: "Farid",
-    surname: "Mansimli"
+    email: "farid@example.com",
+    age: 20,
   });
 
   // or you can also use it like below:
 
-  // const form = useSchema(personSchema,props.person);
+  // const form = useSchema(personSchema,props.user);
 
   ....
   ....
@@ -187,22 +267,21 @@ just create a schema and specify dependent fields inside the hook.
 import React from "react";
 import { useDynamic } from "@validify-js/react";
 
-const LoginPage = (props) => {
+const ProfilePage = (props) => {
 
-  const form = useDynamic(personSchema,
+  const form = useDynamic(userSchema,
       (data) => {
         return {
-          surname: {
+          password: {
             required: data.name ? true : false,
-            minLength: data.name ? 8 : 5
           },
           age: {
-            required: data.surname ? true : false,
-            min: data.surname ? 25 : 18
+            required: data.email ? true : false,
+            min: data.email ? 25 : 18
           }
         };
       },
-      ["name", "surname"]
+      ["name", "email"]
     );
 
 ```
@@ -210,11 +289,11 @@ const LoginPage = (props) => {
 ## Using with React Native <a name="react-native"></a>
 
 ```
-// instead of updateField and blurField, use updateNative and blurNative, that's it!
+// just pass the name of the field to the function, that's it.
 
 <TextInput
-  onValueChange={form.updateNative("username")}
-  onBlur={form.blurNative("username")}
+  onValueChange={form.updateField("username")}
+  onBlur={form.blurField("username")}
   value={form.data.username.value}
 />
 
@@ -237,6 +316,8 @@ const LoginPage = (props) => {
 ---
 
 **please, buy me a coffe to support this package**.
+
+---
 
 ## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/faridmansimli)
 

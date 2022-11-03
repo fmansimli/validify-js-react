@@ -1,7 +1,7 @@
 {
   "name": "@validify-js/react",
   "description": "validation package for React.js",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "pub": "npm run git && npm run build && npm publish"
   },
   "dependencies": {
-    "@validify-js/core": "^1.1.0"
+    "@validify-js/core": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "18.0.24"
