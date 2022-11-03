@@ -48,7 +48,7 @@ export const user = new Schema({
     required: false,
   },
   password: {
-    type: Number,
+    type: String,
     required: true,
     pattern: /[A-Za-z0-9]{8,}/
   },
