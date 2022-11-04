@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import { Schema, ISchema } from "@validify-js/core";
+import { Schema, ISchema } from "./schema";
 import { Util } from "./util";
 
 interface IState {
