@@ -1,4 +1,6 @@
-### Marvelous validation for React.js / React Native
+# @validify-js/react &nbsp; (React.js/React Native)
+
+[![npm version](https://img.shields.io/npm/v/@validify-js/react)](https://www.npmjs.com/package/@validify-js/react) &nbsp; [![npm downloads/month](https://img.shields.io/npm/dm/@validify-js/react)](https://www.npmjs.com/package/@validify-js/react) &nbsp; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fmansimli/@validify-js/react/blob/master/LICENSE)
 
 ---
 
@@ -27,7 +29,7 @@ npm install --save @validify-js/react
 
 #### an example of how to create a valid schema <a name="example"></a>
 
-```
+```ts
 // keep in mind that "type" property must be specified!!!
 // for example type:Number
 
@@ -50,7 +52,7 @@ export const user = new Schema({
   password: {
     type: String,
     required: true,
-    pattern: /[A-Za-z0-9]{8,}/
+    pattern: /[A-Za-z0-9]{8,}/,
   },
   age: {
     type: Number,
@@ -63,59 +65,53 @@ export const user = new Schema({
     required: true,
   },
 });
-
 ```
 
 #### **you can validate any object or jsx form by using the schema wich we created above. for example:** <a name="validating"></a>
 
-```
+```ts
 const user = {
   name: "Farid",
   email: "farid@example.com",
-  hobbies:["sky-diving", "soccer"],
-  age: 25
+  hobbies: ["sky-diving", "soccer"],
+  age: 25,
 };
 
 const { ok, data, errors } = userSchema.validate(user);
 
 // validation will be failed. (ok --> false),
 // because, a few fields are required in the above schema.
-
-
 ```
 
 ## how to use it with React.js ? that's amazingly easy <a name="reactjs"></a>
 
-```
-
+```tsx
 // best practice! create the schema as a seperate file
 // and import it to keep code clean.
 
 import React from "react";
-import { useSchema , Schema } from "@validify-js/react";
+import { useSchema, Schema } from "@validify-js/react";
 
 // create a schema ....
 // we are going to use the same schema which we created above.
 
-const  ProfilePage = (props) => {
+const ProfilePage = (props) => {
   const form = useSchema(userSchema);
 
   const { name, age, profession, blocked, hobbies, gender } = form.data;
 
   // you can destructure the fields from form.data, if you want
 
-
   const submitHanlder = (event) => {
     event.preventDefault();
 
     const { ok, data, errors } = form.validate();
 
-    if(ok){
+    if (ok) {
       // if "ok" is true, it means form is valid , you are good to go!
       // "data" includes input values
       // "errors" includes the error messages of invalid fields, if exists
     }
-
   };
 
   return (
@@ -132,7 +128,6 @@ const  ProfilePage = (props) => {
           <br />
           <small>{name.error}</small>
           <br />
-
           <input
             type="number"
             name="age"
@@ -143,7 +138,6 @@ const  ProfilePage = (props) => {
           <br />
           {age.touched && <small>{age.error}</small>}
           <br />
-
           <div>
             {hobbieList.map((hobbie, index) => (
               <div key={index}>
@@ -162,12 +156,10 @@ const  ProfilePage = (props) => {
           </div>
           <br />
           <small>{hobbies.error}</small>
-
-          // we'are using "updateList" method for multiple(array) values instead of updateField
-          // we'are also using "blurList" method for multiple(array) values instead of blurField
-
+          // we'are using "updateList" method for multiple(array) values instead
+          of updateField // we'are also using "blurList" method for multiple(array)
+          values instead of blurField
           <hr />
-
           <input
             type="checkbox"
             name="blocked"
@@ -177,9 +169,7 @@ const  ProfilePage = (props) => {
           />
           <br />
           <small>{blocked.error}</small>
-
           <hr />
-
           <input
             type="radio"
             name="gender"
@@ -198,9 +188,7 @@ const  ProfilePage = (props) => {
           />
           <br />
           <small>{gender.error}</small>
-
           <hr />
-
           <select
             name="profession"
             onChange={form.updateField}
@@ -217,7 +205,6 @@ const  ProfilePage = (props) => {
           </select>
           <br />
           <small>{profession.error}</small>
-
           <hr />
           <button type="submit">submit</button>
           <button type="reset">reset</button>
@@ -225,11 +212,9 @@ const  ProfilePage = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default ProfilePage;
-
-
 ```
 
 **P.S** &nbsp;&nbsp;
@@ -246,7 +231,7 @@ look at the --> (hobbies) in the jsx above
 
 ## how to use it with initial values ? this is also amazingly easy <a name="initial-values"></a>
 
-```
+```tsx
 // best practice! create the schema as a seperate file
 // and import it to keep code clean.
 
@@ -278,7 +263,7 @@ use the **useDynamic** hook instead of **useSchema**
 
 just create a schema and specify dependent fields inside the hook.
 
-```
+```tsx
 // best practice! create the schema as a seperate file
 // and import it to keep code clean.
 
@@ -306,19 +291,16 @@ const ProfilePage = (props) => {
 
 ## Using with React Native <a name="react-native"></a>
 
-```
+```tsx
 // just pass the name of the field to the function, that's it.
 
 <TextInput
   onValueChange={form.updateField("username")}
   onBlur={form.blurField("username")}
   value={form.data.username.value}
-/>
+/>;
 
-{form.data.username.touched && (
-  <Text>{form.data.username.error}</Text>
-)}
-
+<Text>{form.data.username.error}</Text>;
 ```
 
 **that's pretty much it, guys!**
