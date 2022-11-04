@@ -8,7 +8,7 @@ const setType = (type: any) => {
   } else if (type === Array) {
     return [];
   } else {
-    return null;
+    return "";
   }
 };
 
@@ -41,6 +41,8 @@ export class Util {
   static init(schema: any, initial: any) {
     const data: any = {};
     for (const field in schema) {
+      if (typeof schema[field] === "function") continue;
+
       const value = initial.hasOwnProperty(field)
         ? initial[field]
         : setType(schema[field].type);
