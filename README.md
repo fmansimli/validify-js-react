@@ -26,7 +26,7 @@ npm install --save @validify-js/react
 4. [With initial values](#initial-values)
 5. [Dependent fields (dynamic schema)](#dependent-fields)
 6. [Using with React-native](#react-native)
-7. [Keep in mind](#keep-in-mind)
+7. [Keep in mind (important!)](#keep-in-mind)
 
 <br/>
 
@@ -326,13 +326,21 @@ const ProfilePage = (props) => {
 
 ### <a name="keep-in-mind">Keep in mind</a>
 
+- name attribute of the input should match with the exact property in schema (important!)
+
+- "type" property must be specified in the Schema
+
 - name attribute of the input should match with the exact property in schema
 
 - we'are using "**updateList**" method for multiple (array) values instead of "**updateField**"
 
 - we'are also using "**blurList**" method for multiple (array) values instead of "**blurField**"
 
+<br />
+
 **that's pretty much it, guys!**
+
+<br />
 
 ---
 
