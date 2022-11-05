@@ -21,13 +21,17 @@ npm install --save @validify-js/react
 ### Table of contents
 
 1. [Creating Schema](#example)
-2. [validating an object](#validating)
+2. [Validating an object](#validating)
 3. [Using with React.js](#reactjs)
-4. [with initial values](#initial-values)
+4. [With initial values](#initial-values)
 5. [Dependent fields (dynamic schema)](#dependent-fields)
 6. [Using with React-native](#react-native)
 
-#### an example of how to create a valid schema <a name="example"></a>
+<br/>
+
+### <a name="example">Creating Schema</a>
+
+an example of how to create a valid schema
 
 ```ts
 // keep in mind that "type" property must be specified!!!
@@ -67,7 +71,9 @@ export const user = new Schema({
 });
 ```
 
-#### **you can validate any object or jsx form by using the schema wich we created above. for example:** <a name="validating"></a>
+### <a name="validating">Validating an object</a>
+
+you can validate any object or jsx form by using the schema wich we created above. for example:
 
 ```ts
 const user = {
@@ -83,7 +89,9 @@ const { ok, data, errors } = userSchema.validate(user);
 // because, a few fields are required in the above schema.
 ```
 
-## how to use it with React.js ? that's amazingly easy <a name="reactjs"></a>
+### <a name="reactjs">Using with React.js</a>
+
+how to use it with React.js ? that's amazingly easy
 
 ```tsx
 // best practice! create the schema as a seperate file
@@ -156,9 +164,7 @@ const ProfilePage = (props) => {
           </div>
           <br />
           <small>{hobbies.error}</small>
-          // we'are using "updateList" method for multiple(array) values instead
-          of updateField // we'are also using "blurList" method for multiple(array)
-          values instead of blurField
+
           <hr />
           <input
             type="checkbox"
@@ -218,18 +224,27 @@ export default ProfilePage;
 ```
 
 **P.S** &nbsp;&nbsp;
-we'are using "**updateList**" method for multiple(array) values instead of "**updateField**" <br />
+we'are using "**updateList**" method for multiple(array) values instead of "**updateField**"
+
 we'are also using "**blurList**" method for multiple(array) values instead of "**blurField**"
 
-look at the --> (hobbies) in the jsx above
+<br />
 
-**P.S** &nbsp;&nbsp; keep in mind that -> name attribute of the input should match with the exact property in schema
-
-**you might not belive, however, that's pretty much it, as simple as you see**
+look at the --> (hobbies) in the jsx above ^
 
 ---
 
-## how to use it with initial values ? this is also amazingly easy <a name="initial-values"></a>
+**P.S** &nbsp;&nbsp; keep in mind that -> name attribute of the input should match with the exact property in schema
+
+<br />
+
+_you might not belive, however, that's pretty much it, as simple as you see_
+
+<br />
+
+### <a name="initial-values">With initial values</a>
+
+how to use it with initial values ? this is also amazingly easy
 
 ```tsx
 // best practice! create the schema as a seperate file
@@ -257,7 +272,9 @@ const  ProfilePage = (props) => {
   ....
 ```
 
-## how to use dependent fields ? don't worry, it's a piece of cake <a name="dependent-fields"></a>
+### <a name="dependent-fields">Dependent fields (dynamic schema)</a>
+
+how to use dependent fields ? don't worry, it's a piece of cake
 
 use the **useDynamic** hook instead of **useSchema**
 
@@ -289,7 +306,7 @@ const ProfilePage = (props) => {
 
 ```
 
-## Using with React Native <a name="react-native"></a>
+### <a name="react-native">Using with React-native</a>
 
 ```tsx
 // just pass the name of the field to the function, that's it.
@@ -302,6 +319,8 @@ const ProfilePage = (props) => {
 
 <Text>{form.data.username.error}</Text>;
 ```
+
+<br />
 
 **that's pretty much it, guys!**
 
