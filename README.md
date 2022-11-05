@@ -1,4 +1,4 @@
-<br />
+[![@validify-js/core](https://github.com/fmansimli/validify-js-react/blob/master/public/v-react.jpg?raw=true)](https://www.buymeacoffee.com/faridmansimli)
 
 [![npm version](https://img.shields.io/npm/v/@validify-js/react)](https://www.npmjs.com/package/@validify-js/react) &nbsp; [![npm downloads/month](https://img.shields.io/npm/dm/@validify-js/react)](https://www.npmjs.com/package/@validify-js/react) &nbsp; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fmansimli/validify-js-react/blob/master/LICENSE)
 
