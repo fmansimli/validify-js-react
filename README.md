@@ -18,6 +18,8 @@ npm install --save @validify-js/react
 
 ---
 
+<br/>
+
 ### Table of contents
 
 1. [Creating Schema](#example)
@@ -72,6 +74,8 @@ export const user = new Schema({
 });
 ```
 
+<br/>
+
 ### <a name="validating">Validating an object</a>
 
 you can validate any object or jsx form by using the schema wich we created above. for example:
@@ -89,6 +93,8 @@ const { ok, data, errors } = userSchema.validate(user);
 // validation will be failed. (ok --> false),
 // because, a few fields are required in the above schema.
 ```
+
+<br/>
 
 ### <a name="reactjs">Using with React.js</a>
 
@@ -274,6 +280,8 @@ const  ProfilePage = (props) => {
   ....
 ```
 
+<br/>
+
 ### <a name="dependent-fields">Dependent fields (dynamic schema)</a>
 
 how to use dependent fields ? don't worry, it's a piece of cake
@@ -308,6 +316,8 @@ const ProfilePage = (props) => {
 
 ```
 
+<br/>
+
 ### <a name="react-native">Using with React-native</a>
 
 ```tsx
@@ -340,9 +350,9 @@ const ProfilePage = (props) => {
 
 **that's pretty much it, guys!**
 
-<br />
-
 ---
+
+<br/>
 
 ### **you can reach me here:**
 
@@ -352,8 +362,8 @@ const ProfilePage = (props) => {
 
 ---
 
-**please, buy me a coffe to support this package**.
+<br/>
 
----
+**please, buy me a coffe to support this package**.
 
 ## [![buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)](https://www.buymeacoffee.com/faridmansimli)
