@@ -26,6 +26,7 @@ npm install --save @validify-js/react
 4. [With initial values](#initial-values)
 5. [Dependent fields (dynamic schema)](#dependent-fields)
 6. [Using with React-native](#react-native)
+7. [Keep in mind](#keep-in-mind)
 
 <br/>
 
@@ -223,18 +224,19 @@ const ProfilePage = (props) => {
 export default ProfilePage;
 ```
 
-**P.S** &nbsp;&nbsp;
-we'are using "**updateList**" method for multiple(array) values instead of "**updateField**"
+**KEEP IN MIND:** &nbsp;&nbsp;
 
-we'are also using "**blurList**" method for multiple(array) values instead of "**blurField**"
+- name attribute of the input should match with the exact property in schema
+
+- we'are using "**updateList**" method for multiple(array) values instead of "**updateField**"
+
+- we'are also using "**blurList**" method for multiple(array) values instead of "**blurField**"
 
 <br />
 
-look at the --> (hobbies) in the jsx above ^
+**look at the --> (hobbies) in the jsx above ^**
 
 ---
-
-**P.S** &nbsp;&nbsp; keep in mind that -> name attribute of the input should match with the exact property in schema
 
 <br />
 
@@ -276,9 +278,9 @@ const  ProfilePage = (props) => {
 
 how to use dependent fields ? don't worry, it's a piece of cake
 
-use the **useDynamic** hook instead of **useSchema**
+- use the **useDynamic** hook instead of **useSchema**
 
-just create a schema and specify dependent fields inside the hook.
+- just create a schema and specify dependent fields inside the hook.
 
 ```tsx
 // best practice! create the schema as a seperate file
@@ -321,6 +323,14 @@ const ProfilePage = (props) => {
 ```
 
 <br />
+
+### <a name="keep-in-mind">Keep in mind</a>
+
+- name attribute of the input should match with the exact property in schema
+
+- we'are using "**updateList**" method for multiple (array) values instead of "**updateField**"
+
+- we'are also using "**blurList**" method for multiple (array) values instead of "**blurField**"
 
 **that's pretty much it, guys!**
 
