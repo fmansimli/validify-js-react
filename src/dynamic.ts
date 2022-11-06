@@ -43,7 +43,7 @@ export const useDynamic = (
 
   const validate = () => {
     const plain = Util.plain(state.data);
-    const vdata = schema.validate(plain);
+    const vdata = dynamic.validate(plain);
     const payload = Util.shape(vdata);
     dispatch({ type: Actions.VALIDATE, payload });
 
@@ -83,8 +83,10 @@ export const useDynamic = (
 
   const blurField = (e: any) => {
     if (!e.target) {
-      return (value: any) => {
-        blurField({ target: { name: e, value, type: "native" } });
+      return (_value: any) => {
+        blurField({
+          target: { name: e, value: state.data[e].value, type: "native" },
+        });
       };
     }
     let { name, value, type, checked } = e.target;
@@ -107,7 +109,7 @@ export const useDynamic = (
 
     if (fields.includes(name)) {
       const plain = Util.plain(state.data);
-      const newschema = schema.rebuilt(func({ ...plain, [name]: value }));
+      const newschema = dynamic.rebuilt(func({ ...plain, [name]: value }));
       setDynamic(newschema);
     }
   };
@@ -143,8 +145,8 @@ export const useDynamic = (
 
   const blurList = (e: any) => {
     if (!e.target) {
-      return (value: any) => {
-        updateList({ target: { name: e, value, type: "native" } });
+      return (_value: any) => {
+        updateList({ target: { name: e, value: "", type: "native" } });
       };
     }
     let { name } = e.target;
@@ -158,7 +160,7 @@ export const useDynamic = (
 
     if (fields.includes(name)) {
       const plain = Util.plain(state.data);
-      const newschema = schema.rebuilt(func({ ...plain, [name]: value }));
+      const newschema = dynamic.rebuilt(func({ ...plain, [name]: value }));
       setDynamic(newschema);
     }
   };

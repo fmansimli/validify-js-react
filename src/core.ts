@@ -77,12 +77,16 @@ export const useSchema = (schema: Schema, initial = {}) => {
 
   const blurField = (e: any) => {
     if (!e.target) {
-      return (value: any) => {
-        blurField({ target: { name: e, value, type: "native" } });
+      return (_value: any) => {
+        blurField({
+          target: { name: e, value: state.data[e].value, type: "native" },
+        });
       };
     }
     let { name, value, type, checked } = e.target;
-    if (!value) return;
+    if (!value) {
+      return;
+    }
 
     switch (type) {
       case "number":
@@ -131,8 +135,8 @@ export const useSchema = (schema: Schema, initial = {}) => {
 
   const blurList = (e: any) => {
     if (!e.target) {
-      return (value: any) => {
-        updateList({ target: { name: e, value, type: "native" } });
+      return (_value: any) => {
+        updateList({ target: { name: e, value: "", type: "native" } });
       };
     }
     let { name } = e.target;

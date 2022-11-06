@@ -39,8 +39,6 @@ export class Util {
   }
 
   static init(schema: any, initial: any) {
-    console.log("schema");
-
     const data: any = {};
     for (const field in schema) {
       if (typeof schema[field] === "function") continue;
