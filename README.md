@@ -322,7 +322,7 @@ const ProfilePage = (props) => {
 // just pass the name of the field to the function, that's it.
 
 <TextInput
-  onValueChange={form.updateField("username")}
+  onChangeText={form.updateField("username")}
   onBlur={form.blurField("username")}
   value={form.data.username.value}
 />;
