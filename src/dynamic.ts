@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 import { Schema, ISchema } from "./schema";
 import { Util } from "./util";
 
@@ -38,12 +38,19 @@ export const useDynamic = (
   fields: string[],
   initial = {}
 ) => {
-  const [state, dispatch] = useReducer(reducer, Util.init(schema, initial));
-  const [dynamic, setDynamic] = useState<Schema>(schema);
+  const [changed, setChanged] = useState(false);
+  const [state, dispatch] = useReducer(
+    reducer,
+    changed ? {} : Util.init(schema, initial)
+  );
+
+  useEffect(() => {
+    setChanged(true);
+  }, []);
 
   const validate = () => {
     const plain = Util.plain(state.data);
-    const vdata = dynamic.validate(plain);
+    const vdata = schema.validate(plain);
     const payload = Util.shape(vdata);
     dispatch({ type: Actions.VALIDATE, payload });
 
@@ -83,10 +90,8 @@ export const useDynamic = (
 
   const blurField = (e: any) => {
     if (!e.target) {
-      return (_value: any) => {
-        blurField({
-          target: { name: e, value: state.data[e].value, type: "native" },
-        });
+      return (value: any) => {
+        blurField({ target: { name: e, value, type: "native" } });
       };
     }
     let { name, value, type, checked } = e.target;
@@ -109,8 +114,7 @@ export const useDynamic = (
 
     if (fields.includes(name)) {
       const plain = Util.plain(state.data);
-      const newschema = dynamic.rebuilt(func({ ...plain, [name]: value }));
-      setDynamic(newschema);
+      schema.rebuilt(func({ ...plain, [name]: value }));
     }
   };
 
@@ -145,8 +149,8 @@ export const useDynamic = (
 
   const blurList = (e: any) => {
     if (!e.target) {
-      return (_value: any) => {
-        updateList({ target: { name: e, value: "", type: "native" } });
+      return (value: any) => {
+        updateList({ target: { name: e, value, type: "native" } });
       };
     }
     let { name } = e.target;
@@ -160,14 +164,14 @@ export const useDynamic = (
 
     if (fields.includes(name)) {
       const plain = Util.plain(state.data);
-      const newschema = dynamic.rebuilt(func({ ...plain, [name]: value }));
-      setDynamic(newschema);
+      schema.rebuilt(func({ ...plain, [name]: value }));
     }
   };
 
   const resetForm = () => {
     const payload = Util.init(schema, initial);
     dispatch({ type: "", payload });
+    schema.rebuilt(func(Util.plain(payload.data)));
   };
 
   return {

@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect, useState } from "react";
 import { Schema } from "./schema";
 import { Util } from "./util";
 
@@ -33,7 +33,15 @@ const reducer = (state: IState, action: any) => {
 };
 
 export const useSchema = (schema: Schema, initial = {}) => {
-  const [state, dispatch] = useReducer(reducer, Util.init(schema, initial));
+  const [changed, setChanged] = useState(false);
+  const [state, dispatch] = useReducer(
+    reducer,
+    changed ? {} : Util.init(schema, initial)
+  );
+
+  useEffect(() => {
+    setChanged(true);
+  }, []);
 
   const validate = () => {
     const plain = Util.plain(state.data);
@@ -77,16 +85,12 @@ export const useSchema = (schema: Schema, initial = {}) => {
 
   const blurField = (e: any) => {
     if (!e.target) {
-      return (_value: any) => {
-        blurField({
-          target: { name: e, value: state.data[e].value, type: "native" },
-        });
+      return (value: any) => {
+        blurField({ target: { name: e, value, type: "native" } });
       };
     }
     let { name, value, type, checked } = e.target;
-    if (!value) {
-      return;
-    }
+    if (!value) return;
 
     switch (type) {
       case "number":
@@ -135,8 +139,8 @@ export const useSchema = (schema: Schema, initial = {}) => {
 
   const blurList = (e: any) => {
     if (!e.target) {
-      return (_value: any) => {
-        updateList({ target: { name: e, value: "", type: "native" } });
+      return (value: any) => {
+        updateList({ target: { name: e, value, type: "native" } });
       };
     }
     let { name } = e.target;

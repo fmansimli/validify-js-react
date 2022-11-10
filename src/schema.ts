@@ -27,6 +27,7 @@ export class Schema {
     for (const field in schema) {
       this[field] = { ...this[field], ...schema[field] };
     }
+    console.log("re...");
     return this;
   }
 

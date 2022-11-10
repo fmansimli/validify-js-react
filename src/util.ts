@@ -14,6 +14,8 @@ const setType = (type: any) => {
 
 export class Util {
   static plain(data: any) {
+    console.log("p...");
+
     const entity: any = {};
 
     for (const field in data) {
@@ -24,6 +26,7 @@ export class Util {
   }
 
   static shape({ ok, data, errors }: any) {
+    console.log("s...");
     const state: any = { data: {}, ok };
 
     for (const field in data) {
@@ -39,6 +42,7 @@ export class Util {
   }
 
   static init(schema: any, initial: any) {
+    console.log("i...");
     const data: any = {};
     for (const field in schema) {
       if (typeof schema[field] === "function") continue;
